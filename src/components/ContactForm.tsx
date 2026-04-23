@@ -1,38 +1,9 @@
-import { useState } from "react"
-
-// Sign up free at formspree.io, create a form, paste the ID here.
-const FORMSPREE_ID = "mvzddgea"
-
-type Status = "idle" | "sending" | "sent" | "error"
+import { useForm, ValidationError } from "@formspree/react"
 
 export function ContactForm() {
-  const [status, setStatus] = useState<Status>("idle")
+  const [state, handleSubmit] = useForm("mvzddgea")
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setStatus("sending")
-    const form = e.currentTarget
-    const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-    }
-    try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      setStatus(res.ok ? "sent" : "error")
-    } catch {
-      setStatus("error")
-    }
-  }
-
-  if (status === "sent") {
+  if (state.succeeded) {
     return (
       <p className="font-sans text-sm text-foreground/70">
         Message sent — I'll be in touch soon.
@@ -41,7 +12,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-2">
           <label className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.18em] text-foreground/50">
@@ -54,6 +25,7 @@ export function ContactForm() {
             className="border border-foreground bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:ring-1 focus:ring-foreground"
             placeholder="Your name"
           />
+          <ValidationError field="name" prefix="Name" errors={state.errors} className="font-sans text-xs text-[#DB4A2B]" />
         </div>
         <div className="flex flex-col gap-2">
           <label className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.18em] text-foreground/50">
@@ -67,6 +39,7 @@ export function ContactForm() {
             className="border border-foreground bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:ring-1 focus:ring-foreground"
             placeholder="you@example.com"
           />
+          <ValidationError field="email" prefix="Email" errors={state.errors} className="font-sans text-xs text-[#DB4A2B]" />
         </div>
       </div>
 
@@ -81,20 +54,17 @@ export function ContactForm() {
           className="resize-none border border-foreground bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:ring-1 focus:ring-foreground"
           placeholder="Tell me about your project…"
         />
+        <ValidationError field="message" prefix="Message" errors={state.errors} className="font-sans text-xs text-[#DB4A2B]" />
       </div>
 
-      {status === "error" && (
-        <p className="font-sans text-xs text-[#DB4A2B]">
-          Something went wrong — please try again or email me directly.
-        </p>
-      )}
+      <ValidationError errors={state.errors} className="font-sans text-xs text-[#DB4A2B]" />
 
       <button
         type="submit"
-        disabled={status === "sending"}
+        disabled={state.submitting}
         className="self-start border border-foreground px-8 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background disabled:opacity-50"
       >
-        {status === "sending" ? "Sending…" : "Send message"}
+        {state.submitting ? "Sending…" : "Send message"}
       </button>
     </form>
   )
