@@ -2,12 +2,11 @@ import { ArrowUpRight, ArrowDown } from "lucide-react"
 import { useRef, useState } from "react"
 import { Experience } from "./Experience"
 
-function LinkButton({ href, label }: { href: string; label: string }) {
+function LinkButton({ href, label, newTab = false }: { href: string; label: string; newTab?: boolean }) {
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background"
     >
       {label}
