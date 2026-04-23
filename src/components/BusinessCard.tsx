@@ -53,7 +53,14 @@ export function BusinessCard() {
               Todor<br />Stanev
             </h1>
             <p className="font-sans text-lg leading-snug text-foreground/70 max-w-sm">
-              Six years delivering automation and process improvement in healthcare. Interested in building things, design, and the intersection of the two.
+              Six years delivering automation and process improvement in healthcare. Interested in building things, design, and the intersection of the two.{" "}
+              Got a project in mind?{" "}
+              <a
+                href="mailto:tstanev97@gmail.com"
+                className="underline underline-offset-2 transition-colors hover:text-[#DB4A2B]"
+              >
+                Get in touch.
+              </a>
             </p>
           </div>
 
