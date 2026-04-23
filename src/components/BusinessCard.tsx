@@ -20,13 +20,7 @@ export function BusinessCard() {
   const panelRef = useRef<HTMLDivElement>(null)
 
   function toggle() {
-    const next = !isOpen
-    setIsOpen(next)
-    if (next) {
-      setTimeout(() => {
-        panelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
-      }, 50)
-    }
+    setIsOpen((prev) => !prev)
   }
 
   return (
