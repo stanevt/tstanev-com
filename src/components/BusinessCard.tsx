@@ -8,7 +8,7 @@ function LinkButton({ href, label, newTab = false }: { href: string; label: stri
     <a
       href={href}
       {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background"
+      className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
     >
       {label}
       <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -68,11 +68,11 @@ export function BusinessCard() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <LinkButton href="https://blog.tstanev.com" label="Life" />
             <button
               onClick={() => toggle("experience")}
-              className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background"
+              className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
             >
               Experience
               <ArrowDown
