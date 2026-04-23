@@ -1,5 +1,6 @@
 import { ArrowUpRight, ArrowDown } from "lucide-react"
 import { useRef, useState } from "react"
+import { ContactForm } from "./ContactForm"
 import { Experience } from "./Experience"
 
 function LinkButton({ href, label, newTab = false }: { href: string; label: string; newTab?: boolean }) {
@@ -16,12 +17,15 @@ function LinkButton({ href, label, newTab = false }: { href: string; label: stri
 }
 
 export function BusinessCard() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [panel, setPanel] = useState<"experience" | "contact" | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
-  function toggle() {
-    setIsOpen((prev) => !prev)
+  function toggle(name: "experience" | "contact") {
+    setPanel((prev) => (prev === name ? null : name))
   }
+
+  const isOpen = panel === "experience"
+  const isContactOpen = panel === "contact"
 
   return (
     <article className="border-x border-b border-foreground bg-background/40 backdrop-blur-[1px]">
@@ -55,19 +59,19 @@ export function BusinessCard() {
             <p className="font-sans text-lg leading-snug text-foreground/70 max-w-sm">
               Six years delivering automation and process improvement in healthcare. Interested in building things, design, and the intersection of the two.{" "}
               Got a project in mind?{" "}
-              <a
-                href="mailto:tstanev97@gmail.com"
+              <button
+                onClick={() => toggle("contact")}
                 className="underline underline-offset-2 transition-colors hover:text-[#DB4A2B]"
               >
                 Get in touch.
-              </a>
+              </button>
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <LinkButton href="https://blog.tstanev.com" label="Life" />
             <button
-              onClick={toggle}
+              onClick={() => toggle("experience")}
               className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background"
             >
               Experience
@@ -81,11 +85,18 @@ export function BusinessCard() {
         </div>
       </div>
 
-      {/* Experience panel — simple show/hide */}
+      {/* Expandable panels */}
       {isOpen && (
         <div ref={panelRef} className="border-t border-foreground">
           <div className="p-8 sm:p-12 lg:p-16">
             <Experience />
+          </div>
+        </div>
+      )}
+      {isContactOpen && (
+        <div className="border-t border-foreground">
+          <div className="p-8 sm:p-12 lg:p-16">
+            <ContactForm />
           </div>
         </div>
       )}
