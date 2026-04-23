@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import { GradientBlobs } from "./components/GradientBlobs"
 import { BusinessCard } from "./components/BusinessCard"
 
@@ -17,6 +18,7 @@ export default function App() {
           © {new Date().getFullYear()} · Todor Stanev
         </p>
       </footer>
+      <Analytics />
     </div>
   )
 }
