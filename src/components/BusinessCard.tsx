@@ -65,8 +65,8 @@ export function BusinessCard() {
             >
               Experience
               <ArrowDown
-                size={13}
-                className="transition-transform duration-300"
+                size={14}
+                className="shrink-0 transition-transform duration-300"
                 style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
               />
             </button>
