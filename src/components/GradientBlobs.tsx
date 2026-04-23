@@ -1,8 +1,10 @@
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react"
 import { useEffect } from "react"
 
+const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+
 export function GradientBlobs() {
-  const reduced = useReducedMotion()
+  const reduced = useReducedMotion() || isTouch
 
   const rawX = useMotionValue(0)
   const rawY = useMotionValue(0)
@@ -33,37 +35,69 @@ export function GradientBlobs() {
         className="pointer-events-none fixed inset-0 -z-10"
         style={{ mixBlendMode: "multiply" }}
       >
-        <motion.div
-          className="absolute -top-[15vw] -left-[10vw] h-[60vw] w-[60vw] rounded-full"
-          animate={{ scale: [1, 1.06, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            background: "radial-gradient(circle at center, #DB4A2B 0%, transparent 55%)",
-            filter: "blur(140px)",
-            opacity: 0.62,
-            ...(reduced ? {} : { x: b1x, y: b1y }),
-          }}
-        />
-        <motion.div
-          className="absolute top-[20vw] -right-[15vw] h-[55vw] w-[55vw] rounded-full"
-          animate={{ scale: [1, 1.04, 1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          style={{
-            background: "radial-gradient(circle at center, #F8A348 0%, transparent 65%)",
-            filter: "blur(140px)",
-            ...(reduced ? {} : { x: b2x, y: b2y }),
-          }}
-        />
-        <motion.div
-          className="absolute top-[80vh] left-[20vw] h-[45vw] w-[45vw] rounded-full"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 6 }}
-          style={{
-            background: "radial-gradient(circle at center, #FF89A9 0%, transparent 65%)",
-            filter: "blur(160px)",
-            ...(reduced ? {} : { x: b3x, y: b3y }),
-          }}
-        />
+        {reduced ? (
+          <>
+            <div
+              className="absolute -top-[15vw] -left-[10vw] h-[60vw] w-[60vw] rounded-full"
+              style={{
+                background: "radial-gradient(circle at center, #DB4A2B 0%, transparent 55%)",
+                filter: "blur(80px)",
+                opacity: 0.62,
+              }}
+            />
+            <div
+              className="absolute top-[20vw] -right-[15vw] h-[55vw] w-[55vw] rounded-full"
+              style={{
+                background: "radial-gradient(circle at center, #F8A348 0%, transparent 65%)",
+                filter: "blur(80px)",
+              }}
+            />
+            <div
+              className="absolute top-[80vh] left-[20vw] h-[45vw] w-[45vw] rounded-full"
+              style={{
+                background: "radial-gradient(circle at center, #FF89A9 0%, transparent 65%)",
+                filter: "blur(80px)",
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <motion.div
+              className="absolute -top-[15vw] -left-[10vw] h-[60vw] w-[60vw] rounded-full"
+              animate={{ scale: [1, 1.06, 1] }}
+              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+              style={{
+                background: "radial-gradient(circle at center, #DB4A2B 0%, transparent 55%)",
+                filter: "blur(140px)",
+                opacity: 0.62,
+                x: b1x,
+                y: b1y,
+              }}
+            />
+            <motion.div
+              className="absolute top-[20vw] -right-[15vw] h-[55vw] w-[55vw] rounded-full"
+              animate={{ scale: [1, 1.04, 1] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+              style={{
+                background: "radial-gradient(circle at center, #F8A348 0%, transparent 65%)",
+                filter: "blur(140px)",
+                x: b2x,
+                y: b2y,
+              }}
+            />
+            <motion.div
+              className="absolute top-[80vh] left-[20vw] h-[45vw] w-[45vw] rounded-full"
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+              style={{
+                background: "radial-gradient(circle at center, #FF89A9 0%, transparent 65%)",
+                filter: "blur(160px)",
+                x: b3x,
+                y: b3y,
+              }}
+            />
+          </>
+        )}
       </div>
 
       {/* Grain */}
