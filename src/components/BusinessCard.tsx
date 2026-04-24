@@ -1,5 +1,5 @@
 import { ArrowUpRight, ArrowDown } from "lucide-react"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ContactForm } from "./ContactForm"
 import { Experience } from "./Experience"
 
@@ -26,6 +26,15 @@ export function BusinessCard() {
 
   const isOpen = panel === "experience"
   const isContactOpen = panel === "contact"
+
+  useEffect(() => {
+    if (panel !== null) {
+      const timer = setTimeout(() => {
+        panelRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+      }, 50)
+      return () => clearTimeout(timer)
+    }
+  }, [panel])
 
   return (
     <article className="border-x border-b border-foreground bg-background/40 backdrop-blur-[1px]">
@@ -94,7 +103,7 @@ export function BusinessCard() {
         </div>
       )}
       {isContactOpen && (
-        <div className="border-t border-foreground">
+        <div ref={panelRef} className="border-t border-foreground">
           <div className="p-8 sm:p-12 lg:p-16">
             <ContactForm />
           </div>
