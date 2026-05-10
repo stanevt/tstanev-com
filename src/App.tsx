@@ -1,8 +1,12 @@
 import { Analytics } from "@vercel/analytics/react"
+import { Moon, Sun } from "lucide-react"
 import { GradientBlobs } from "./components/GradientBlobs"
 import { BusinessCard } from "./components/BusinessCard"
+import { useDarkMode } from "./hooks/useDarkMode"
 
 export default function App() {
+  const { dark, toggle } = useDarkMode()
+
   return (
     <div className="min-h-screen relative flex flex-col">
       <GradientBlobs />
@@ -13,10 +17,18 @@ export default function App() {
         <BusinessCard />
       </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-foreground px-8 py-2.5 bg-background/60 backdrop-blur-sm z-10">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-foreground px-8 py-2.5 bg-background/60 backdrop-blur-sm z-10 flex items-center justify-between">
         <p className="font-sans text-[0.6rem] font-medium uppercase tracking-[0.18em] text-foreground/40">
           © {new Date().getFullYear()} · Todor Stanev
         </p>
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+          className="text-foreground/40 transition-colors hover:text-accent"
+        >
+          {dark ? <Sun size={13} strokeWidth={2} /> : <Moon size={13} strokeWidth={2} />}
+        </button>
       </footer>
       <Analytics />
     </div>
