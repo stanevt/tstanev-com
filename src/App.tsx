@@ -11,9 +11,9 @@ export default function App() {
     <div className="min-h-screen relative flex flex-col">
       <GradientBlobs />
 
-      <header className="border-b border-foreground px-8 py-14" />
+      <header className="border-b border-foreground px-8 py-4 sm:py-14" />
 
-      <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 pb-20 flex-1 animate-slide-up">
+      <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 pb-16 sm:pb-20 flex-1 animate-slide-up">
         <BusinessCard />
       </div>
 

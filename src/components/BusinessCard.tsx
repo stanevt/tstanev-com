@@ -42,7 +42,7 @@ export function BusinessCard() {
 
         {/* Photo */}
         <div className="border-b border-foreground lg:border-b-0 lg:border-r">
-          <div className="aspect-[3/2] sm:aspect-[4/3] lg:aspect-[4/5] w-full overflow-hidden bg-foreground/10">
+          <div className="aspect-[16/9] sm:aspect-[4/3] lg:aspect-[4/5] w-full overflow-hidden bg-foreground/10">
             <img
               src="/photo.jpeg"
               alt="Todor Stanev"
