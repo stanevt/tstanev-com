@@ -8,7 +8,7 @@ function LinkButton({ href, label, newTab = false }: { href: string; label: stri
     <a
       href={href}
       {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="group flex items-center justify-center gap-2 border border-foreground px-5 py-3 sm:py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
+      className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
     >
       {label}
       <ArrowUpRight size={13} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -42,7 +42,7 @@ export function BusinessCard() {
 
         {/* Photo */}
         <div className="border-b border-foreground lg:border-b-0 lg:border-r">
-          <div className="aspect-[2/1] sm:aspect-[4/3] lg:aspect-[4/5] w-full overflow-hidden bg-foreground/10">
+          <div className="aspect-[16/9] sm:aspect-[4/3] lg:aspect-[4/5] w-full overflow-hidden bg-foreground/10">
             <img
               src="/photo.jpeg"
               alt="Todor Stanev"
@@ -77,11 +77,11 @@ export function BusinessCard() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <LinkButton href="https://blog.tstanev.com" label="Life" />
             <button
               onClick={() => toggle("experience")}
-              className="group flex items-center justify-center gap-2 border border-foreground px-5 py-3 sm:py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
+              className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
             >
               Experience
               <ArrowDown
