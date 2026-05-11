@@ -53,19 +53,19 @@ export function BusinessCard() {
         </div>
 
         {/* Info */}
-        <div className="flex flex-col justify-between gap-12 p-8 sm:p-12 lg:p-16">
-          <div className="flex flex-col gap-8">
+        <div className="flex flex-col justify-between gap-6 sm:gap-12 p-6 sm:p-12 lg:p-16">
+          <div className="flex flex-col gap-5 sm:gap-8">
             <div aria-hidden className="h-[4px] w-20" style={{ backgroundColor: "#DB4A2B" }} />
-            <p className="font-sans text-[0.7rem] font-medium uppercase tracking-[0.18em] text-foreground/40">
+            <p className="hidden sm:block font-sans text-[0.7rem] font-medium uppercase tracking-[0.18em] text-foreground/40">
               Automation Specialist & Business Analyst
             </p>
             <h1
               className="font-display font-bold uppercase leading-[0.82] tracking-[0.02em] text-foreground"
-              style={{ fontSize: "clamp(2.75rem, 5.5vw, 4.5rem)" }}
+              style={{ fontSize: "clamp(2rem, 5.5vw, 4.5rem)" }}
             >
               Todor<br />Stanev
             </h1>
-            <p className="font-sans text-lg leading-snug text-foreground/70 max-w-sm">
+            <p className="font-sans text-sm sm:text-lg leading-snug text-foreground/70 max-w-sm">
               Six years delivering automation and process improvement in healthcare. Interested in building things, design, and the intersection of the two.{" "}
               Got a project in mind?{" "}
               <button
