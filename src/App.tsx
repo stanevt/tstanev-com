@@ -22,7 +22,7 @@ export default function App() {
         </button>
       </header>
 
-      <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 pb-16 sm:pb-20 flex-1 animate-slide-up">
+      <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 pb-16 sm:pb-20 animate-slide-up">
         <BusinessCard />
       </div>
 
