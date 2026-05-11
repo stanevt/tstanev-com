@@ -78,7 +78,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 export function Experience() {
   return (
     <div>
-      <SectionLabel>Experience</SectionLabel>
+      <SectionLabel>Work</SectionLabel>
       <div className="border-t border-foreground">
         {roles.map((role, i) => (
           <div
