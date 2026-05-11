@@ -9,7 +9,8 @@ export function NotFoundPage() {
           404
         </h1>
         <p className="font-sans text-lg text-foreground/60">
-          Nothing here. The page you're looking for doesn't exist.
+          You came to this page with confidence.<br />
+          I respect that.
         </p>
         <Link
           to="/"
