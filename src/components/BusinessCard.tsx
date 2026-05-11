@@ -47,7 +47,7 @@ export function BusinessCard() {
               src="/photo.jpeg"
               alt="Todor Stanev"
               className="h-full w-full object-cover"
-              style={{ objectPosition: "center 30%" }}
+              style={{ objectPosition: "center 20%" }}
             />
           </div>
         </div>
