@@ -83,7 +83,7 @@ export function BusinessCard() {
               onClick={() => toggle("experience")}
               className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
             >
-              Experience
+              Work
               <ArrowDown
                 size={14}
                 className="shrink-0 transition-transform duration-300"
