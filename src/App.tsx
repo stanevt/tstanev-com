@@ -1,8 +1,18 @@
 import { Analytics } from "@vercel/analytics/react"
 import { Moon, Sun } from "lucide-react"
+import { Routes, Route } from "react-router-dom"
 import { GradientBlobs } from "./components/GradientBlobs"
 import { BusinessCard } from "./components/BusinessCard"
+import { NotFoundPage } from "./components/NotFoundPage"
 import { useDarkMode } from "./hooks/useDarkMode"
+
+function HomePage() {
+  return (
+    <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 pb-16 sm:pb-20 animate-slide-up">
+      <BusinessCard />
+    </div>
+  )
+}
 
 export default function App() {
   const { dark, toggle } = useDarkMode()
@@ -22,9 +32,10 @@ export default function App() {
         </button>
       </header>
 
-      <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 pb-16 sm:pb-20 animate-slide-up">
-        <BusinessCard />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
 
       <footer className="fixed bottom-0 left-0 right-0 border-t border-foreground px-8 py-2.5 bg-background/60 backdrop-blur-sm z-10 flex items-center">
         <p className="font-sans text-[0.6rem] font-medium uppercase tracking-[0.18em] text-foreground/40">
