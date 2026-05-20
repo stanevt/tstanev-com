@@ -1,7 +1,6 @@
-import { ArrowUpRight, ArrowDown } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { ContactForm } from "./ContactForm"
-import { Experience } from "./Experience"
 
 function LinkButton({ href, label, newTab = false }: { href: string; label: string; newTab?: boolean }) {
   return (
@@ -17,14 +16,13 @@ function LinkButton({ href, label, newTab = false }: { href: string; label: stri
 }
 
 export function BusinessCard() {
-  const [panel, setPanel] = useState<"experience" | "contact" | null>(null)
+  const [panel, setPanel] = useState<"contact" | null>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
-  function toggle(name: "experience" | "contact") {
+  function toggle(name: "contact") {
     setPanel((prev) => (prev === name ? null : name))
   }
 
-  const isOpen = panel === "experience"
   const isContactOpen = panel === "contact"
 
   useEffect(() => {
@@ -79,29 +77,12 @@ export function BusinessCard() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <LinkButton href="https://blog.tstanev.com" label="Life" />
-            <button
-              onClick={() => toggle("experience")}
-              className="group flex items-center justify-center gap-2 border border-foreground px-5 py-4 font-sans text-xs font-medium uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-foreground hover:text-background whitespace-nowrap"
-            >
-              Work
-              <ArrowDown
-                size={14}
-                className="shrink-0 transition-transform duration-300"
-                style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
-              />
-            </button>
+            <LinkButton href="https://work.tstanev.com" label="Work" newTab />
           </div>
         </div>
       </div>
 
       {/* Expandable panels */}
-      {isOpen && (
-        <div ref={panelRef} className="border-t border-foreground">
-          <div className="p-8 sm:p-12 lg:p-16">
-            <Experience />
-          </div>
-        </div>
-      )}
       {isContactOpen && (
         <div ref={panelRef} className="border-t border-foreground">
           <div className="p-8 sm:p-12 lg:p-16">
