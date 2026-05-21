@@ -37,10 +37,29 @@ export default function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-foreground px-8 py-2.5 bg-background/60 backdrop-blur-sm z-10 flex items-center">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-foreground px-8 py-2.5 bg-background/60 backdrop-blur-sm z-10 flex items-center justify-between gap-4">
         <p className="font-sans text-[0.6rem] font-medium uppercase tracking-[0.18em] text-foreground/40">
           © {new Date().getFullYear()} · Todor Stanev
         </p>
+        <div className="flex items-center gap-4">
+          {(
+            [
+              ["GitHub", "https://github.com/stanevt"],
+              ["Work", "https://work.tstanev.com"],
+              ["Blog", "https://blog.tstanev.com"],
+              ["Privacy", "https://blog.tstanev.com/privacy"],
+              ["Cookies", "https://blog.tstanev.com/cookies"],
+            ] as [string, string][]
+          ).map(([label, href]) => (
+            <a
+              key={label}
+              href={href}
+              className="font-sans text-[0.6rem] font-medium uppercase tracking-[0.18em] text-foreground/40 transition-colors hover:text-foreground"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
       </footer>
       <Analytics />
     </div>
