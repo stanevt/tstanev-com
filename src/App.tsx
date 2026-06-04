@@ -32,7 +32,7 @@ export default function App() {
         </button>
       </header>
 
-      <main className="flex flex-1 items-center py-6 sm:py-10">
+      <main className="flex flex-1 items-start pb-6 sm:pb-10">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="*" element={<NotFoundPage />} />
