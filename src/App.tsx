@@ -8,7 +8,7 @@ import { useDarkMode } from "./hooks/useDarkMode"
 
 function HomePage() {
   return (
-    <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 pb-16 sm:pb-20 animate-slide-up">
+    <div className="mx-auto max-w-6xl w-full px-6 sm:px-10 animate-slide-up">
       <BusinessCard />
     </div>
   )
@@ -18,7 +18,7 @@ export default function App() {
   const { dark, toggle } = useDarkMode()
 
   return (
-    <div className="min-h-screen relative flex flex-col">
+    <div className="min-h-dvh relative flex flex-col">
       <GradientBlobs />
 
       <header className="border-b border-foreground px-8 py-4 sm:py-14 flex items-center justify-end">
@@ -32,16 +32,18 @@ export default function App() {
         </button>
       </header>
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <main className="flex flex-1 items-center py-6 sm:py-10">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-foreground px-8 py-2.5 bg-background/60 backdrop-blur-sm z-10 flex items-center justify-between gap-4">
+      <footer className="border-t border-foreground px-8 py-2.5 bg-background/60 backdrop-blur-sm flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
         <p className="font-sans text-[0.6rem] font-medium uppercase tracking-[0.18em] text-foreground/40">
           © {new Date().getFullYear()} · Todor Stanev
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           {(
             [
               ["GitHub", "https://github.com/stanevt"],
