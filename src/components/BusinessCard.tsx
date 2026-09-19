@@ -77,7 +77,7 @@ export function BusinessCard() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <LinkButton href="https://blog.tstanev.com" label="Life" />
-            <LinkButton href="https://work.tstanev.com" label="Work" newTab />
+            <LinkButton href="https://work.tstanev.com" label="Work" />
           </div>
         </div>
       </div>
