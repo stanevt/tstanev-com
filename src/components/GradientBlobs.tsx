@@ -2,9 +2,13 @@ import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } fro
 import { useEffect } from "react"
 
 const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches
+// Heavy blur + grain is a real cost on phones and the payoff is small at that
+// size — same contract as blog.tstanev.com.
+const DISABLE_ATMOSPHERE_ON_MOBILE = true
 
 export function GradientBlobs() {
   const reduced = useReducedMotion() || isTouch
+  const mobileVisibilityClass = DISABLE_ATMOSPHERE_ON_MOBILE ? "hidden md:block" : ""
 
   const rawX = useMotionValue(0)
   const rawY = useMotionValue(0)
@@ -20,19 +24,27 @@ export function GradientBlobs() {
 
   useEffect(() => {
     if (reduced) return
+    let rafId = 0
     function onMouseMove(e: MouseEvent) {
-      rawX.set(e.clientX / window.innerWidth - 0.5)
-      rawY.set(e.clientY / window.innerHeight - 0.5)
+      if (rafId) return
+      rafId = requestAnimationFrame(() => {
+        rafId = 0
+        rawX.set(e.clientX / window.innerWidth - 0.5)
+        rawY.set(e.clientY / window.innerHeight - 0.5)
+      })
     }
     window.addEventListener("mousemove", onMouseMove)
-    return () => window.removeEventListener("mousemove", onMouseMove)
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove)
+      if (rafId) cancelAnimationFrame(rafId)
+    }
   }, [reduced, rawX, rawY])
 
   return (
     <>
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10 [mix-blend-mode:multiply] dark:[mix-blend-mode:screen]"
+        className={`pointer-events-none fixed inset-0 -z-10 [mix-blend-mode:multiply] dark:[mix-blend-mode:screen] ${mobileVisibilityClass}`}
       >
         {reduced ? (
           <>
@@ -102,7 +114,7 @@ export function GradientBlobs() {
       {/* Grain */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 -z-10"
+        className={`pointer-events-none fixed inset-0 -z-10 ${mobileVisibilityClass}`}
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E")`,
           mixBlendMode: "soft-light",

@@ -12,12 +12,15 @@
 }
 
 :root {
+  /* Tells the UA (and iOS Safari's overscroll/chrome surfaces) to render light. */
+  color-scheme: light;
   --background: #E4E2DD;
   --foreground: #1E1E1E;
   --accent:     #DB4A2B;
 }
 
 .dark {
+  color-scheme: dark;
   --background: #1E1E1E;
   --foreground: #E4E2DD;
   --accent:     #DB4A2B;
@@ -26,6 +29,12 @@
 * { box-sizing: border-box; }
 
 html {
+  /* Single opaque painted surface = the canvas. Two jobs:
+     1) iOS Safari samples this for its status/URL bar tint, so with no
+        theme-color meta the bars track light/dark instead of going opaque.
+     2) Being the canvas, it sits *behind* the -z-10 blobs/grain, which keeps
+        them visible (body is transparent above it). Tracks .dark. */
+  background-color: var(--background);
   color: var(--color-foreground);
   scroll-behavior: smooth;
   scrollbar-color: #db4a2b var(--background);
@@ -33,9 +42,12 @@ html {
 }
 
 body {
+  /* NO background here. The page background lives on <html> (above) so it
+     paints the *canvas*, behind the fixed -z-10 GradientBlobs. If body also
+     had an opaque background, its in-flow box would paint in front of the
+     negative-z blobs and hide them. */
   margin: 0;
   font-family: var(--font-sans);
-  background: var(--color-background);
   color: var(--color-foreground);
 }
 
@@ -61,4 +73,37 @@ body {
 
 .animate-slide-up {
   animation: slide-up 0.5s ease both;
+}
+
+/* =========================================================================
+   Theme toggle — ink-drop view transition
+   ========================================================================= */
+
+html[data-theme-transition] *,
+html[data-theme-transition] *::before,
+html[data-theme-transition] *::after {
+  transition-property: none !important;
+  transition-duration: 0s !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* The incoming theme always grows in on top. Clip its layer to circle(0) for
+   the first paint, before Motion's WAAPI animation commits — otherwise the
+   browser paints the new theme's snapshot full-screen for one frame, which is
+   the toggle flash. --vt-x/--vt-y are set in App.tsx handleThemeToggle. */
+html[data-theme-transition]::view-transition-new(root) {
+  clip-path: circle(0px at var(--vt-x) var(--vt-y));
+}
+
+::view-transition-old(root) {
+  z-index: 0;
+}
+
+::view-transition-new(root) {
+  z-index: 1;
 }

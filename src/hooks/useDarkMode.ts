@@ -17,13 +17,13 @@ function resolveInitial(): boolean {
 }
 
 export function useDarkMode() {
-  const [dark, setDark] = useState(false)
+  // Resolved synchronously so the first render already agrees with the class
+  // the inline bootstrap in index.html put on <html> — no light-mode flash.
+  const [dark, setDark] = useState(resolveInitial)
 
   useEffect(() => {
-    const isDark = resolveInitial()
-    setDark(isDark)
-    document.documentElement.classList.toggle("dark", isDark)
-  }, [])
+    document.documentElement.classList.toggle("dark", dark)
+  }, [dark])
 
   const toggle = useCallback(() => {
     setDark((prev) => {
